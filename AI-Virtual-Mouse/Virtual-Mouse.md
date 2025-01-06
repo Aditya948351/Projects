@@ -21,18 +21,18 @@ Hand Gesture Recognition: Detect gestures like:
 
 🛠️ Setup
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Install the required Python libraries (Ensure Python 3.12 or higher is installed):
+- Install the required Python libraries (Ensure Python 3.12 or higher is installed):
 
 
 pip install opencv-python mediapipe pyautogui numpy    
 ----------------------------------------------------
 
-Connect your webcam and ensure it’s functioning correctly.
-Clone this repository and run the script:
+- Connect your webcam and ensure it’s functioning correctly.
+  Clone this repository and run the script:
 
 python VirtualMouse.py                
 ----------------------------------------------------
-Enter the name and password when prompted:
+- Enter the name and password when prompted:
 
 Name: Aditya
 
@@ -40,45 +40,39 @@ Password: 123 (you can modify accordingly in script)
 
 Click "Start Virtual Mouse", and you’re ready to go!
 
-🎥 Usage
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-- Left-Click Gesture: Raise your middle finger while the index finger is raised.
-- Right-Click Gesture: Touch the index finger to the thumb and extend other fingers.
-- Double-Click Gesture: Touch the index finger to the middle finger quickly.
-- Scroll Gesture: Lean the ring finger downwards.
-- Mouse Movement Gesture: Move your thumb to control the mouse pointer.
 
 🧰 Dependencies
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Ensure the following Python libraries are installed:
 
-  OpenCV: For image processing.
-  Mediapipe: For hand tracking and gesture recognition.
-  PyAutoGUI: For automating Mouse movements.
-  NumPy: For efficient numerical computations.
+- OpenCV: For image processing.
+- Mediapipe: For hand tracking and gesture recognition.
+- PyAutoGUI: For automating Mouse movements.
+- NumPy: For efficient numerical computations.
 
 💡 Notes
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Customize settings like speed_factor and gesture thresholds in the script as needed.
-Use a well-lit environment for accurate gesture detection.
-Avoid cluttered backgrounds to ensure smooth performance.
+- Customize settings like speed_factor and gesture thresholds in the script as needed.
+- Use a well-lit environment for accurate gesture detection.
+- Avoid cluttered backgrounds to ensure smooth performance.
+- Maintain a Max and Min distance of about 15 to 50 cm respectively.
 
 
 🆕 What's New?
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Added Security: The script now includes a secure login system!
+- Added Security: The script now includes a secure login system!
 
-Default credentials:
+- Default credentials:
 
-Name: Aditya
-
-Password: 123
+  Name: Aditya
+  
+  Password: 123
 
 (Feel free to modify the username/password in the script to personalize your experience.)
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 🥳 Contribute
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Adding new gestures or improving existing ones.
-Enhancing the user interface or adding new features.
-Fork, star ⭐, and send a pull request! Let’s upgrade this project with Collaboration!
+- Adding new gestures or improving existing ones.
+- Enhancing the user interface or adding new features.
+- Fork, star ⭐, and send a pull request! Let’s upgrade this project with Collaboration!
