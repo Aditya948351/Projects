@@ -50,11 +50,11 @@ Click "Start Virtual Mouse", and you’re ready to go!
 
 🎥 Usage
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  Left-Click: Raise your middle and index finger.
-  Right-Click: Touch your index finger to the thumb.
-  Double-Click: Quickly tap your index and middle finger together.
-  Scroll: Lower your ring finger.
-  Pointer Movement: Move your thumb in the desired direction.
+*Left-Click Gesture: Raise your middle finger while the index finger is raised.
+-Right-Click Gesture: Touch the index finger to the thumb and extend other fingers.
+_Double-Click Gesture: Touch the index finger to the middle finger quickly.
+Scroll Gesture: Lean the ring finger downwards.
+Mouse Movement Gesture: Move your thumb to control the mouse pointer.
 
 🧰 Dependencies
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
