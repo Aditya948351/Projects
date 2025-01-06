@@ -1,3 +1,4 @@
+
 🖱️ Virtual Mouse Control with Hand Gestures
 
 Take control of your computer like never before! This Python project transforms your webcam into a gesture-based virtual mouse using hand tracking and gesture recognition. Harness the power of OpenCV, Mediapipe, and PyAutoGUI to revolutionize how you interact with your system.
@@ -32,8 +33,11 @@ python VirtualMouse.py
 ----------------------------------------------------------
 
 Enter the name and password when prompted:
+
 Name: Aditya
+
 Password: 123 (you can modify accordingly in script)
+
 Click "Start Virtual Mouse", and you’re ready to go!
 
 🎥 Usage
