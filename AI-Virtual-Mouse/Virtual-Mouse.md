@@ -21,14 +21,14 @@ User-Friendly Interaction: Experience seamless control with intuitive gestures.
 Install the required Python libraries (Ensure Python 3.12 or higher is installed):
 
 ----------------------------------------------------------
-pip install opencv-python mediapipe pyautogui numpy    ---
+pip install opencv-python mediapipe pyautogui numpy    
 ----------------------------------------------------------
 
 Connect your webcam and ensure it’s functioning correctly.
 Clone this repository and run the script:
 
 ----------------------------------------------------------
-python VirtualMouse.py                 ---
+python VirtualMouse.py                
 ----------------------------------------------------------
 
 Enter the name and password when prompted:
