@@ -34,9 +34,9 @@ python VirtualMouse.py
 ----------------------------------------------------
 - Enter the name and password when prompted:
 
-Name: Aditya
+   - Name: Aditya
 
-Password: 123 (you can modify accordingly in script)
+   - Password: 123 (you can modify accordingly in script)
 
 Click "Start Virtual Mouse", and you’re ready to go!
 
