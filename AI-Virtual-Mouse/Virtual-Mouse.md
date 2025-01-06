@@ -49,7 +49,7 @@ Name: Aditya
 Password: 123 (you can modify accordingly in script)
 
 Click "Start Virtual Mouse", and you’re ready to go!
-
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 🎥 Usage
 
   Left-Click: Raise your middle and index finger.
@@ -57,7 +57,7 @@ Click "Start Virtual Mouse", and you’re ready to go!
   Double-Click: Quickly tap your index and middle finger together.
   Scroll: Lower your ring finger.
   Pointer Movement: Move your thumb in the desired direction.
-
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 🧰 Dependencies
 
 Ensure the following Python libraries are installed:
@@ -66,19 +66,25 @@ Ensure the following Python libraries are installed:
   Mediapipe: For hand tracking and gesture recognition.
   PyAutoGUI: For automating Mouse movements.
   NumPy: For efficient numerical computations.
-  
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 💡 Notes
 
 Customize settings like speed_factor and gesture thresholds in the script as needed.
 Use a well-lit environment for accurate gesture detection.
 Avoid cluttered backgrounds to ensure smooth performance.
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 🆕 What's New?
 
 Added Security: The script now includes a secure login system!
+
 Default credentials:
+
 Name: Aditya
+
 Password: 123
+
 (Feel free to modify the username/password in the script to personalize your experience.)
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 🖼️ Preview
