@@ -3,9 +3,10 @@
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Take control of your computer like never before! This Python project transforms your webcam into a gesture-based virtual mouse using hand tracking and gesture recognition. Harness the power of OpenCV, Mediapipe, and PyAutoGUI to revolutionize how you interact with your system.
 
-________________________________________________________________________________________________________________________________________________________________________________
-🌟 Features
+_______________________________________________________________________________________________________________________________________________________________________________
 
+🌟 Features
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Hand Gesture Recognition: Detect gestures like:
 
 Left-Click: Raise your index and middle finger.
@@ -26,22 +27,19 @@ Secure Access: Includes a password-protected entry screen for personalized use.
 
 User-Friendly Interaction: Experience seamless control with intuitive gestures.
 
-
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 🛠️ Setup
-
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Install the required Python libraries (Ensure Python 3.12 or higher is installed):
 
 
 pip install opencv-python mediapipe pyautogui numpy    
-
+----------------------------------------------------
 
 Connect your webcam and ensure it’s functioning correctly.
 Clone this repository and run the script:
 
-
 python VirtualMouse.py                
-
+----------------------------------------------------
 Enter the name and password when prompted:
 
 Name: Aditya
