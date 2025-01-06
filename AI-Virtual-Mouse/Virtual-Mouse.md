@@ -7,15 +7,25 @@ ________________________________________________________________________________
 🌟 Features
 
 Hand Gesture Recognition: Detect gestures like:
+
 Left-Click: Raise your index and middle finger.
+
 Right-Click: Touch thumb and index finger together.
+
 Double-Click: Tap index and middle finger together quickly.
+
 Scroll: Tilt the ring finger downwards.
+
 Mouse Movement: Move the thumb to guide the pointer.
+
 Visual Feedback: See dynamic circles on your fingertips for real-time gesture tracking.
+
 Customizable Settings: Adjust mouse speed, gesture thresholds, and screen dimensions to suit your needs.
+
 Secure Access: Includes a password-protected entry screen for personalized use.
+
 User-Friendly Interaction: Experience seamless control with intuitive gestures.
+
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 🛠️ Setup
