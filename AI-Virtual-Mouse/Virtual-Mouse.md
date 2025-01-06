@@ -17,6 +17,7 @@ Customizable Settings: Adjust mouse speed, gesture thresholds, and screen dimens
 Secure Access: Includes a password-protected entry screen for personalized use.
 User-Friendly Interaction: Experience seamless control with intuitive gestures.
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 🛠️ Setup
 
 Install the required Python libraries (Ensure Python 3.12 or higher is installed):
