@@ -70,7 +70,8 @@ Ensure the following Python libraries are installed:
 
 (Feel free to modify the username/password in the script to personalize your experience.)
 
-<p>Added new Features 
+- Added new Features:
+1. for Increasing Accuracy: 
 
 🥳 Contribute
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
