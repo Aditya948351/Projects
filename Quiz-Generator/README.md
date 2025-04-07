@@ -20,6 +20,8 @@ The project is for converting pdf files with the text of any concept generates q
 
 First, run the development server:
 
+Ensure that node is installed on your pc
+
 ```bash
 npm run dev
 # or
