@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { isContext } from "vm";
+import ProgressBar from "@/components/progressBar";
+import { ChevronLeft, Users, X } from "lucide-react";
 
 const questions = [
     {
@@ -11,7 +12,6 @@ const questions = [
             { answerText: "it is an open source platform running on kernel", isCorrect: false, id: 2},
             { answerText: "It is a open source operating system like Windows", isCorrect: false, id: 3},
             { answerText: "He is a man of culture", isCorrect: false, id: 4},
-
         ]
     },
     {
@@ -37,8 +37,14 @@ const questions = [
 
 
 export default function Home() {
-  const [started, setStarted] = useState(false);  
-  const [currentQuestion, setCurrentQuestion] = useState (0);
+  const [started, setStarted] = useState<boolean>(false);  
+  const [currentQuestion, setCurrentQuestion] = 
+  useState<number>(0);
+  const [score, setScore] = useState<number>(0);
+  const [selectedAnswer, setSelectedAnswer] = 
+  useState<number | null>(null);
+  const [isCorrect, setIsCorrect] = useState<boolean | null>
+  (null);
   
   const handleNext = () => {
     if (!started) {
@@ -51,8 +57,33 @@ export default function Home() {
     }
   }
 
+  const handleAnswer = (answer) => {
+    setSelectedAnswer(answer.id);
+    const isCurrentCorrect = answer.isCorrect;
+    if (isCurrentCorrect) {
+        setScore(score + 1);
+    }
+    setIsCorrect(isCurrentCorrect);
+  }
+
   return (
     <div className="flex flex-col flex-1">
+        <div className="position-sticky top-0 z-10 shadow-md
+        py-4 w-full">
+            <header className="grid grid-cols-[auto,1fr,auto]
+            grid-flow-col items-center justify-between py-2
+            gap-2"> 
+                <Button size="icon" 
+                    variant="outline"><ChevronLeft />
+                </Button>
+                <ProgressBar value={(currentQuestion/ questions.
+                    length) * 100} 
+                />
+                <Button size="icon" variant="outline">
+                    <X />
+                </Button>
+            </header>
+        </div>
         <main className="flex min-h-screenf justify-center flex-1">
           {!started ? <h1 className="text-3xl font-bold">Quiz Generator</h1> : (
             <div>
@@ -64,8 +95,8 @@ export default function Home() {
                         (answer =>  {
                             return (
                                 <Button key = {answer.id} variant =
-                                {"secondary"}>{answer.answerText}</
-                                Button>
+                                {"secondary"} onClick={() => handleAnswer
+                                    (answer)}>{answer.answerText}</Button>
                             )
                         })
                     }
@@ -74,6 +105,7 @@ export default function Home() {
           )}
         </main>
     <footer className="footer pb-9 px-6 relative mb-0fff">
+      <p>{isCorrect ? 'correct': 'incorrect'}</p>  
       <Button onClick={handleNext}>{!started ? 'Start' : 
         'Next'}</Button>
     </footer>
