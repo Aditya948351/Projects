@@ -6,6 +6,13 @@ type Props = {
 }
 
 const ResultCard = (props: Props) => {
+  const { isCorrect } = props;
+
+  if(isCorrect === null) {
+    return null
+  }
+
+  
   return (
     <div>ResultCard</div>
   )
