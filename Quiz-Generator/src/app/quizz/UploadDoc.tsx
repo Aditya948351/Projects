@@ -1,10 +1,10 @@
 "use client"
 import { useState } from "react";
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 
 const UploadDoc = () => {
   const [document, setDocument] = useState<Blob |
-  File | null>(null);
+  File | null | undefined>(null);
   const [isLoading, setIsLoading] = useState<boolean>
   (false);
 
@@ -22,11 +22,17 @@ const UploadDoc = () => {
             <label htmlFor="document" 
             className="bg-secondary w-full flex h-20 rounded-md border-4 border-dashed border-blue-900 relative">
                 <div className="absolute inset-0 m-auto
-                flex justify-center items-center">{"Add PDF here    "}</div>
+                flex justify-center items-center">
+                  {document && document?.name? document.
+                  name : "Drag or upload pdf file here"}
+                  </div>
+                <input type="file" id="document" 
+                className="relative block w-full h-full 
+                z-50 opacity-0" onChange={(e) => setDocument
+                (e?.target?.files?.[0])}/>
             </label>
-            <input type="file" id="document" 
-            className="relative block w-full h-full z-50
-            opacity-0" />
+            <Button size="lg" className="mt-2" 
+            type="submit">Generate Quiz</Button>
         </form>
     </div>
   )
