@@ -23,7 +23,8 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         neo: cn(neoClasses, "bg-primary text-primary-foreground border-blue-900"),
         neoOutline: cn(neoClasses, "bg-[#3e406a] text-white border-[#6366a7]"),
-        neoOutline: cn(neoClasses, "bg-[#3e406a] text-white border-[#6366a7]"),
+        neoSuccess: cn(neoClasses, "bg-green-500 text-primary-foreground border-green-600"),
+        neoDanger: cn(neoClasses, "bg-red-500 text-primary-foreground border-red-600"),
       },
       size: {
         default: "h-10 px-4 py-2",
@@ -62,6 +63,8 @@ export const spanVariants = cva(
           link: "hidden",
           neo: "border-blue-900 bg-primary-shadow",
           neoOutline: "bg-[#6366a7] border-[#6366F6]",
+          neoSuccess: "border-green-500 bg-green-600",
+          neoDanger: "border-red-500 bg-red-600"
         },
     },
     defaultVariants: {
@@ -74,12 +77,14 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp = asChild ? Slot : "button"
 
     const containerClasses = clsx({
-      relative: variant === "neo" || variant == "neoOutline"
+      relative: variant === "neo" || variant == "neoOutline" || variant === 
+      "neoSuccess" || variant === "neoDanger"
     })
 
     const borderRound = clsx({
       "rounded-full": variant === "neo",
-      "rounded-2xl": variant === "neoOutline"
+      "rounded-2xl": variant === "neoOutline" || variant === "neoDanger" ||
+      variant === "neoSuccess"
     })
 
     return (

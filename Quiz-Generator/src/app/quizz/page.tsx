@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import ProgressBar from "@/components/progressBar";
 import { ChevronLeft, Users, X } from "lucide-react";
 import ResultCard from "./ResultCard";
+import QuizSubmission from "./QuizSubmission";
 
 const questions = [
     {
@@ -28,7 +29,7 @@ const questions = [
         questionText: "What will this Python code output? print('2' + '2')",
         answers: [
             { answerText: "22, because Python is dramatic with strings", isCorrect: true, id: 1 },
-            { answerText: "4, because 2 + 2 is 4, duh", isCorrect: false, id: 2 },
+            { answerText: "4, because 2 + 2 is 4,lol", isCorrect: false, id: 2 },
             { answerText: "Error, because Python forgot how to add", isCorrect: false, id: 3 },
             { answerText: "Nothing, it just vibes silently", isCorrect: false, id: 4 }
         ]
@@ -36,16 +37,13 @@ const questions = [
 
 ]
 
-
 export default function Home() {
   const [started, setStarted] = useState<boolean>(false);  
-  const [currentQuestion, setCurrentQuestion] = 
-  useState<number>(0);
+  const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
-  const [selectedAnswer, setSelectedAnswer] = 
-  useState<number | null>(null);
-  const [isCorrect, setIsCorrect] = useState<boolean | null>
-  (null);
+  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  const [submitted, setSubmitted] = useState<boolean>(false);
   
   const handleNext = () => {
     if (!started) {
@@ -55,6 +53,9 @@ export default function Home() {
 
     if (currentQuestion <questions.length -1) {
         setCurrentQuestion(currentQuestion + 1);
+    } else {
+        setSubmitted(true);
+        return;
     }
 
     setSelectedAnswer(null);
@@ -68,6 +69,18 @@ export default function Home() {
         setScore(score + 1);
     }
     setIsCorrect(isCurrentCorrect);
+  }
+
+  const scorePercentage: number = Math.round((score / questions.length) * 100);
+
+  if (submitted) {
+    return (
+        <QuizSubmission
+            score={score}
+            scorePercentage={scorePercentage}
+            totalQuestions={questions.length}
+            />    
+    )
   }
 
   return (
@@ -97,10 +110,13 @@ export default function Home() {
                     {
                         questions[currentQuestion].answers.map
                         (answer =>  {
+                            const variant = selectedAnswer === answer.id ? (answer.
+                            isCorrect ? "neoSuccess" : "neoDanger" ) : "neoOutline";
                             return (
-                                <Button key = {answer.id} variant =
-                                {"neoOutline"} size="xl" onClick={() => handleAnswer
-                                    (answer)}>{answer.answerText}</Button>
+                                <Button key = {answer.id} variant ={variant} size="xl" 
+                                onClick={() => handleAnswer(answer)}><p
+                                className="whitespace-normal">{answer.answerText}</p></
+                                Button>
                             )
                         })
                     }
@@ -113,6 +129,7 @@ export default function Home() {
       [currentQuestion].answers.find(answer =>answer.isCorrect === true)?.
       answerText}/>  
       <Button variant="neo" size="lg" onClick={handleNext}>{!started ? 'Start' : 
+        (currentQuestion === questions.length - 1 ) ? 'Submit' :
         'Next'}</Button>
     </footer>
     </div>
