@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 const UploadDoc = () => {
-  const [document, setDocument] = useState<Blob |
+  const [document, setDocument] = useState< Blob |
   File | null | undefined>(null);
   const [isLoading, setIsLoading] = useState<boolean>
   (false);
