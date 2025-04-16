@@ -10,9 +10,20 @@ const UploadDoc = () => {
     e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log(document);
+    const formData = new FormData();
+    formData.append("pdf", document as Blob);
+    try{
+      const res = await fetch("/api/quizz/generate", {
+        method:"POST",
+        body:formData
+      });
+      if (res.status === 200) {
+        console.log("Document uploaded successfully");
+      }
+    } catch(e) {
+      console.log("error while generating",e);
+    } 
   }
-
   return (
     <div className="w-full">
         <form className="w-full" onSubmit={handleSubmit}
