@@ -13,18 +13,22 @@ const page = async ({ params }: {
     const quizz = await db.query.quizzes.findFirst({
         where: eq(quizzes.id, parseInt(quizzId)),
         with: {
-            answers: true 
+            questions: {
+                with: {
+                    answers: true
+                }
+            } 
         }
     })
     console.log(quizz);
 
     if (!quizzId || !quizz) {
-        return <div>Quizz not found</div>
+        return <div>Quizz will be found in forest</div>
     };
 
 
     return (
-        <p>{quizzId}</p>
+        <div>{quizzId}</div>
     )
 }
 
