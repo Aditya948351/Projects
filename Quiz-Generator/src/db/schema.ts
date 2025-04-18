@@ -7,9 +7,10 @@ import {
     serial,
     boolean,
     pgEnum,
-} from "drizzle-orm/pg-core";
-import type { AdapterAccount } from "@auth/core/adapters";
+} from "drizzle-orm/pg-core"; 
+import type { AdapterAccount} from "@auth/core/adapters";
 import { relations } from "drizzle-orm";
+
 
 export const quizzes = pgTable("quizzes", {
     id: serial("id").primaryKey(),
@@ -25,7 +26,7 @@ export const quizzesRelations = relations(quizzes, ({ many, one }) => ({
 export const questions = pgTable("questions", {
     id: serial("id").primaryKey(),
     questionText: text("question_text"),
-    quizzId: integer("quizz_id")
+    quizzId: integer("quizz_id") 
 });
 
 export const questionsRelations = relations(questions, ({ one, many }) => ({
@@ -42,10 +43,12 @@ export const questionAnswers = pgTable("answers", {
     answerText: text("answer_text"),
     isCorrect: boolean("is_correct")
 });
-
-export const questionAnswerRelations = relations(questionAnswers, ({ one }) => ({
+    
+export const questionAnswersRelations = relations(
+    questionAnswers, 
+    ({ one }) => ({
     question: one(questions, {
         fields: [questionAnswers.questionId],
         references: [questions.id]
     })
-}))
+}));
