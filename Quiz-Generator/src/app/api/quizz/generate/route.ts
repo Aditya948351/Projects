@@ -17,13 +17,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Together AI API key is missing" }, { status: 500 });
     }
 
-    // Step 1: Load PDF using LangChain's PDFLoader
     const loader = new PDFLoader(file, { parsedItemSeparator: "" });
     const docs = await loader.load();
 
     const text = docs.map(doc => doc.pageContent).filter(Boolean).join("\n");
 
-    // Step 2: Define prompt
     const prompt = `
 Given the text, generate a quiz based on the content. Return JSON only.
 The JSON must include a "quizz" object with the following structure:
@@ -45,7 +43,6 @@ The JSON must include a "quizz" object with the following structure:
   ]
 }`;
 
-    // Step 3: Define JSON schema for Together AI function call
     const extractionSchema = {
       name: "extractor",
       description: "Extracts structured quiz data",
@@ -90,20 +87,17 @@ The JSON must include a "quizz" object with the following structure:
       }
     };
 
-    // Step 4: Create Together AI model instance
     const togetherModel = new ChatTogetherAI({
       apiKey: process.env.TOGETHER_API_KEY,
       modelName: "mistralai/Mixtral-8x7B-Instruct-v0.1"
     });
 
-    // Step 5: Bind model with schema parser
     const parser = new JsonOutputFunctionsParser();
     const pipeline = togetherModel.bind({
       functions: [extractionSchema],
       function_call: { name: "extractor" }
     }).pipe(parser);
 
-    // Step 6: Create and send prompt to Together AI
     const message = new HumanMessage({
       content: [{ type: "text", text: `${prompt}\n${text}` }]
     });
