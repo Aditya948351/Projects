@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
     const selectedDocuments = docs.filter(doc => doc.pageContent !== undefined);
     const texts = selectedDocuments.map(doc => doc.pageContent).join("\n");
 
-    const prompt = "given the text which is a summary of the document, generate a quiz based on the text. Return json only that contains a quizz object with fields: name, description and questions. The questions is an array of objects with fields: questionText, answers. The answers is an array of objects with fields: answerText, isCorrect.";
+    const prompt = "given the text which is a summary of the document, generate a quiz based on the text. Return json only that contains a quizz object with fields: name, description and questions. The questions is an array of objects with fields: questionText, answers. The answers is an array of 4 objects with fields: answerText, isCorrect.";
 
     if (!process.env.TOGETHER_API_KEY) {
       return NextResponse.json({ error: "Together AI API key not provided" }, { status: 500 });
