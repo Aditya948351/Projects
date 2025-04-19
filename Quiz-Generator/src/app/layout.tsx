@@ -1,12 +1,14 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { SessionProvider } from "next-auth/react";
+import Header from '@/components/ui/header';
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Student Feedback Tracker App',
-  description: 'Made with Love from Ravi AI',
+  description: 'Made by Ravi AI',
 }
 
 export default function RootLayout({
@@ -16,7 +18,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={"dark"}>{children}</body>
+      <SessionProvider>
+        <body className={"light"}>
+          <Header />
+          {children}
+        </body>
+      </SessionProvider>
     </html>
   )
 }
