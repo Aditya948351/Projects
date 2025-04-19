@@ -6,114 +6,167 @@ import { ChevronLeft, Users, X } from "lucide-react";
 import ResultCard from "./ResultCard";
 import QuizSubmission from "./QuizSubmission";
 import { InferSelectModel } from "drizzle-orm";
-import { questionAnswers,questions as DbQuestions,quizzes } from "@/db/schema";
+import { questionAnswers, questions as DbQuestions, quizzes } from "@/db/schema";
+import { useRouter } from "next/navigation";
+
+
 
 type Answer = InferSelectModel<typeof questionAnswers>;
-type Question = InferSelectModel<typeof DbQuestions> & { answers: Answer[]};
-type Quizz = InferSelectModel<typeof quizzes> & { questions: Question[]};
+type Question = InferSelectModel<typeof DbQuestions> & { answers: Answer[] };
+type Quizz = InferSelectModel<typeof quizzes> & { questions: Question[] };
 
 type Props = {
-    quizz: Quizz
-}
-
+  quizz: Quizz;
+};
 
 export default function QuizzQuestions(props: Props) {
   const { questions } = props.quizz;
-  const [started, setStarted] = useState<boolean>(false);  
+  const [started, setStarted] = useState<boolean>(false);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
-  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  const [userAnswers, setUserAnswers] = useState<{ questionId: number, answerId: 
+  number}[]>([]);
   const [submitted, setSubmitted] = useState<boolean>(false);
-  
+  const router = useRouter();
+
   const handleNext = () => {
     if (!started) {
-        setStarted(true);
-        return;
+      setStarted(true);
+      return;
     }
 
-    if (currentQuestion <questions.length -1) {
-        setCurrentQuestion(currentQuestion + 1);
+    if (currentQuestion < questions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
     } else {
-        setSubmitted(true);
-        return;
+      setSubmitted(true);
+      return;
+    }
+  };
+
+  const handleAnswer = (answer: Answer, questionId: number) => {
+    const newUserAnswerArr = [...userAnswers, {
+      answerId: answer.id,
+      questionId
+    }];
+    setUserAnswers(newUserAnswerArr);
+    const isCurrentCorrect = answer.isCorrect;
+    if (isCurrentCorrect) {
+      setScore(score + 1);
+    }
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const subId = await saveSubmission({ score }, props.quizz.id);
+    } catch (e) {
+      console.log(e);
     }
 
-    setSelectedAnswer(null);
-    setIsCorrect(null);
-  }
+    setSubmitted(true);
+  };
 
-  const handleAnswer = (answer: Answer) => {
-  if (selectedAnswer !== null) return; // Prevent reselection
-  setSelectedAnswer(answer.id);
-  const isCurrentCorrect = answer.isCorrect;
-  if (isCurrentCorrect) {
-    setScore(score + 1);
+  const handlePressPrev = () => {
+    if (currentQuestion !== 0) {
+      setCurrentQuestion((prevCurrentQuestion) => prevCurrentQuestion - 1); 
+    }
+  };
+
+  const handleExit = () => {
+    router.push('/dashboard');
   }
-  setIsCorrect(isCurrentCorrect);
-}
 
   const scorePercentage: number = Math.round((score / questions.length) * 100);
+  const selectedAnswer: number | null | undefined = userAnswers.find((item) => item.
+  questionId === questions[currentQuestion].id)?.answerId;
+  const isCorrect: boolean | null | undefined = questions[currentQuestion].answers.findIndex
+  ((answer) => answer.id === selectedAnswer) ? questions[currentQuestion].answers.
+  find((answer) => answer.id === selectedAnswer)?.isCorrect : null;
 
   if (submitted) {
     return (
-        <QuizSubmission
-            score={score}
-            scorePercentage={scorePercentage}
-            totalQuestions={questions.length}
-            />    
-    )
+      <QuizSubmission
+        score={score}
+        scorePercentage={scorePercentage}
+        totalQuestions={questions.length}
+      />
+    );
   }
 
   return (
     <div className="flex flex-col flex-1">
-        <div className="position-sticky top-0 z-10 shadow-md
-        py-4 w-full">
-            <header className="grid grid-cols-[auto,1fr,auto]
+      <div className="position-sticky top-0 z-10 shadow-md py-4 w-full">
+        <header
+          className="grid grid-cols-[auto,1fr,auto]
             grid-flow-col items-center justify-between py-2
-            gap-2"> 
-                <Button size="icon" 
-                    variant="outline"><ChevronLeft />
-                </Button>
-                <ProgressBar value={(currentQuestion/ questions.
-                    length) * 100} 
-                />
-                <Button size="icon" variant="outline">
-                    <X />
-                </Button>
-            </header>
-        </div>
-        <main className="flex min-h-screenf justify-center flex-1">
-          {!started ? <h1 className="text-3xl font-bold">Quiz Generator</h1> : (
-            <div>
-                <h2 className="text-3xl font-bold">{questions
-                    [currentQuestion].questionText}</h2>
-                <div className="grid grid-cols-1 gap-6 mt-6">
-                    {
-                        questions[currentQuestion].answers.map
-                        (answer =>  {
-                            const variant = selectedAnswer === answer.id ? (answer.
-                            isCorrect ? "neoSuccess" : "neoDanger" ) : "neoOutline";
-                            return (
-                                <Button key = {answer.id} variant ={variant} size="xl" 
-                                onClick={() => handleAnswer(answer)}><p
-                                className="whitespace-normal">{answer.answerText}</p></
-                                Button>
-                            )
-                        })
-                    }
-                </div>
+            gap-2"
+        >
+          <Button size="icon" variant="outline" onClick={handlePressPrev}>
+            <ChevronLeft />
+          </Button>
+          <ProgressBar value={(currentQuestion / questions.length) * 100} />
+          <Button size="icon" variant="outline" onClick={handleExit}>
+            <X />
+          </Button>
+        </header>
+      </div>
+      <main className="flex min-h-screenf justify-center flex-1">
+        {!started ? (
+          <h1 className="text-3xl font-bold">Quiz Generator</h1>
+        ) : (
+          <div>
+            <h2 className="text-3xl font-bold">
+              {questions[currentQuestion].questionText}
+            </h2>
+            <div className="grid grid-cols-1 gap-6 mt-6">
+              {questions[currentQuestion].answers.map((answer) => {
+                const variant =
+                  selectedAnswer === answer.id
+                    ? answer.isCorrect
+                      ? "neoSuccess"
+                      : "neoDanger"
+                    : "neoOutline";
+                return (
+                  <Button
+                    key={answer.id}
+                    disabled={!!selectedAnswer}
+                    variant={variant}
+                    size="xl"
+                    onClick={() => handleAnswer(answer, questions
+                      [currentQuestion].id
+                    )}
+                    className="disabled:opacity-500"
+                  >
+                    <p className="whitespace-normal">
+                      {answer.answerText}
+                    </p>
+                  </Button>
+                );
+              })}
             </div>
-          )}
-        </main>
-    <footer className="footer pb-9 px-6 relative mb-0fff">
-      <ResultCard isCorrect={isCorrect} correctAnswer={questions
-      [currentQuestion].answers.find(answer =>answer.isCorrect === true)?.
-      answerText || ""}/>  
-      <Button variant="neo" size="lg" onClick={handleNext}>{!started ? 'Start' : 
-        (currentQuestion === questions.length - 1 ) ? 'Submit' :
-        'Next'}</Button>
-    </footer>
+          </div>
+        )}
+      </main>
+      <footer className="footer pb-9 px-6 relative mb-0fff">
+        <ResultCard
+          isCorrect={isCorrect}
+          correctAnswer={
+            questions[currentQuestion].answers.find(
+              (answer) => answer.isCorrect === true
+            )?.answerText || ""
+          }
+        />
+        <Button variant="neo" size="lg" onClick={handleNext}>
+          {!started
+            ? "Start"
+            : currentQuestion === questions.length - 1
+            ? "Submit"
+            : "Next"}
+        </Button>
+      </footer>
     </div>
-  )
+  );
+}
+
+function saveSubmission(arg0: { score: number; }, id: number) {
+  throw new Error("Function not implemented.");
 }
