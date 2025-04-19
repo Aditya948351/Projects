@@ -23,7 +23,7 @@ const page = async ({ params }: {
     console.log(quizz);
 
     if (!quizzId || !quizz || quizz.questions.length === 0 ) {
-        return <div>Quizz will be found in forest</div>
+        return <div>Quizz not found</div>
     };
 
 

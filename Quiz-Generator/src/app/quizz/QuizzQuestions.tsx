@@ -44,13 +44,14 @@ export default function QuizzQuestions(props: Props) {
   }
 
   const handleAnswer = (answer: Answer) => {
-    setSelectedAnswer(answer.id);
-    const isCurrentCorrect = answer.isCorrect;
-    if (isCurrentCorrect) {
-        setScore(score + 1);
-    }
-    setIsCorrect(isCurrentCorrect);
+  if (selectedAnswer !== null) return; // Prevent reselection
+  setSelectedAnswer(answer.id);
+  const isCurrentCorrect = answer.isCorrect;
+  if (isCurrentCorrect) {
+    setScore(score + 1);
   }
+  setIsCorrect(isCurrentCorrect);
+}
 
   const scorePercentage: number = Math.round((score / questions.length) * 100);
 
