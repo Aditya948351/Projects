@@ -1,3 +1,18 @@
+import {
+  Cloud,
+  CreditCard,
+  Github,
+  Settings,
+  User,
+  UserPlus,
+  Users,
+  BarChartBig,
+  IndianRupee,
+  CircleUser,
+  BookUser,
+  Instagram
+} from "lucide-react";
+
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -7,69 +22,51 @@ import {
   DropdownMenuLabel,
   DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import Link from "next/link";
 
-export function DropdownMenuDemo() {
+export function NavMenu() {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline">Open</Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+    <DropdownMenuContent className="w-56">
+        <DropdownMenuLabel>Feedback Tracker</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            Profile
-            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            Billing
-            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            Settings
-            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            Keyboard shortcuts
-            <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>Team</DropdownMenuItem>
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
-            <DropdownMenuPortal>
-              <DropdownMenuSubContent>
-                <DropdownMenuItem>Email</DropdownMenuItem>
-                <DropdownMenuItem>Message</DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>More...</DropdownMenuItem>
-              </DropdownMenuSubContent>
-            </DropdownMenuPortal>
-          </DropdownMenuSub>
-          <DropdownMenuItem>
-            New Team
-            <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>GitHub</DropdownMenuItem>
-        <DropdownMenuItem>Support</DropdownMenuItem>
-        <DropdownMenuItem disabled>API</DropdownMenuItem>
-        <DropdownMenuSeparator />
         <DropdownMenuItem>
-          Log out
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+            <Link href="/dashboard" className="flex flexr-row">
+              <BarChartBig className="mr-2 h-4 w-4"/>
+              <span>Dashboard</span>
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+          <CircleUser className="mr-2 h-4 w-4"/>
+            Profile
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <IndianRupee className="mr-2 h-4 w-4"/>
+            Billing
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Settings className="mr-2 h-4 w-4"/>
+            Settings
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuSeparator />
+        <a href="https://github.com/Aditya948351" target="_blank" rel="noopener noreferrer">
+          <DropdownMenuItem>
+            <Github className="mr-2 h-4 w-4"/>
+            GitHub
+          </DropdownMenuItem>
+        </a>
+        <DropdownMenuItem>
+          <Instagram className="mr-2 h-4 w-4"/>
+          Contact Support Team
         </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+        <DropdownMenuItem disabled>Made by PBL group No.(Dont Know)</DropdownMenuItem>
+    </DropdownMenuContent>
   )
 }
