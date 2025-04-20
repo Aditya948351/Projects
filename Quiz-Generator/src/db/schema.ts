@@ -45,13 +45,12 @@ export const accounts = pgTable(
     id_token: text("id_token"),
     session_state: text("session_state"),
   },
-  (account) => [
+  (account) => (
     {
       compoundKey: primaryKey({
         columns: [account.provider, account.providerAccountId],
       }),
-    },
-  ]
+    })
 );
 
 export const sessions = pgTable("session", {
@@ -69,13 +68,12 @@ export const verificationTokens = pgTable(
     token: text("token").notNull(),
     expires: timestamp("expires", { mode: "date" }).notNull(),
   },
-  (verificationToken) => [
+  (verificationToken) => (
     {
       compositePk: primaryKey({
         columns: [verificationToken.identifier, verificationToken.token],
       }),
-    },
-  ]
+    })
 );
 
 export const authenticators = pgTable(
@@ -92,13 +90,12 @@ export const authenticators = pgTable(
     credentialBackedUp: boolean("credentialBackedUp").notNull(),
     transports: text("transports"),
   },
-  (authenticator) => [
+  (authenticator) => (
     {
       compositePK: primaryKey({
         columns: [authenticator.userId, authenticator.credentialID],
       }),
-    },
-  ]
+    })
 );
 
 export const quizzes = pgTable("quizzes", {
@@ -110,6 +107,8 @@ export const quizzes = pgTable("quizzes", {
 
 export const quizzesRelations = relations(quizzes, ({ many, one }) => ({
   questions: many(questions),
+  submissions: many(quizzSubmissions),
+  
 }));
 
 export const questions = pgTable("questions", {
@@ -142,3 +141,19 @@ export const questionAnswersRelations = relations(
     })
   })
 );
+
+export const quizzSubmissions = pgTable("quizz_submissions", {
+  id: serial("id").primaryKey(),
+  quizzId: integer("quizz_id"),
+  score: integer("score")
+})
+
+export const quizzSubmissionsRelations = relations(quizzSubmissions, 
+  ({ one,many }) => ({
+    quizz: one(quizzes, {
+      fields: [quizzSubmissions.quizzId],
+      references: [quizzes.id],
+
+    })
+  })
+)

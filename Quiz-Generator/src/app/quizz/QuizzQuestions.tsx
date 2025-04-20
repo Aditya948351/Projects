@@ -8,6 +8,7 @@ import QuizSubmission from "./QuizSubmission";
 import { InferSelectModel } from "drizzle-orm";
 import { questionAnswers, questions as DbQuestions, quizzes } from "@/db/schema";
 import { useRouter } from "next/navigation";
+import { saveSubmission } from "../actions/saveSubmissions";
 
 
 
@@ -56,9 +57,9 @@ export default function QuizzQuestions(props: Props) {
   };
 
   const handleSubmit = async () => {
-    try {
-      const subId = await saveSubmission({ score }, props.quizz.id);
-    } catch (e) {
+    try{
+      const subId = await saveSubmission( {score}, props.quizz.id);
+    } catch(e) {
       console.log(e);
     }
 
@@ -147,26 +148,20 @@ export default function QuizzQuestions(props: Props) {
         )}
       </main>
       <footer className="footer pb-9 px-6 relative mb-0fff">
-        <ResultCard
-          isCorrect={isCorrect}
-          correctAnswer={
-            questions[currentQuestion].answers.find(
-              (answer) => answer.isCorrect === true
-            )?.answerText || ""
-          }
-        />
-        <Button variant="neo" size="lg" onClick={handleNext}>
-          {!started
-            ? "Start"
-            : currentQuestion === questions.length - 1
-            ? "Submit"
-            : "Next"}
-        </Button>
-      </footer>
+  <ResultCard
+    isCorrect={isCorrect}
+    correctAnswer={
+      questions[currentQuestion].answers.find(
+        (answer) => answer.isCorrect === true
+      )?.answerText || ""
+    }
+  />
+  {
+    (currentQuestion === questions.length - 1) 
+      ? <Button variant="neo" size="lg" onClick={handleSubmit}>Submit</Button>
+      : <Button variant="neo" size="lg" onClick={handleNext}>{!started ? "Start" : "Next"}</Button>
+  }
+</footer>
     </div>
   );
-}
-
-function saveSubmission(arg0: { score: number; }, id: number) {
-  throw new Error("Function not implemented.");
 }
