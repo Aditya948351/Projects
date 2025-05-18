@@ -1,4 +1,4 @@
-The project is for converting pdf files with the text of any concept generates quizzes
+<h1>An Open Source Learning Platform which can generate Quizzes for Students for students based on the PDF they are Uploading</h1>
 
 ## Tech Stack 
 
